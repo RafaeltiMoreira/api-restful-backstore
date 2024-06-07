@@ -43,10 +43,21 @@ function deleteById(id) {
   return getCollection().deleteOne({ _id: new ObjectId(id) })
 }
 
+async function saleById(id, quantity) {
+  const product = await readById(id);
+  if (!product || product.quantity < quantity) {
+    return null;
+  }
+  const newQuantity = product.quantity - quantity;
+  await updateById(id, { quantity: newQuantity });
+  return readById(id);
+}
+
 module.exports = {
   readAll,
   readById,
   create,
   updateById,
-  deleteById
+  deleteById,
+  saleById
 }

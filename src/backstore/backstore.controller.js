@@ -48,10 +48,30 @@ async function deleteById(req, res) {
   res.send('Item removido com sucesso: ' + id)
 }
 
+async function saleById(req, res) {
+  const id = req.params.id;
+  const { quantity } = req.body;
+
+  if (quantity == null) {
+    return res.status(400).send('Corpo da requisição deve conter a propriedade `quantity`.');
+  }
+
+  try {
+    const updatedItem = await service.saleById(id, quantity);
+    if (!updatedItem) {
+      return res.status(404).send('Item não encontrado ou quantidade insuficiente.');
+    }
+    res.send(updatedItem);
+  } catch (error) {
+    res.status(500).send('Erro ao processar a venda.');
+  }
+}
+
 module.exports = {
   readAll,
   readById,
   create,
   updateById,
-  deleteById
+  deleteById,
+  saleById
 }
