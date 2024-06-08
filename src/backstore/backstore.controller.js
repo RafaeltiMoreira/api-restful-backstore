@@ -1,3 +1,4 @@
+const backstore = require('./backstore.entity');
 const service = require('./backstore.service');
 
 async function readAll(_, res) {
@@ -18,10 +19,10 @@ async function readById(req, res) {
 }
 
 async function create(req, res) {
-  const newItem = req.body
+  const { error, value: newItem } = backstore.validate(req.body)
 
-  if (!newItem || !newItem.name) {
-    return res.status(400).send('Corpo da requisição deve conter a propriedade `name`.')
+  if (error) {
+    return res.status(400).send({ error: error.details[0].message })
   }
 
   await service.create(newItem)
@@ -31,10 +32,10 @@ async function create(req, res) {
 async function updateById(req, res) {
   const id = req.params.id
 
-  const newItem = req.body
+  const { error, value: newItem } = backstore.validate(req.body)
 
-  if (!newItem || !newItem.name) {
-    return res.status(400).send('Corpo da requisição deve conter a propriedade `name`.')
+  if (error) {
+    return res.status(400).send({ error: error.details[0].message })
   }
 
   await service.updateById(id, newItem)
@@ -50,10 +51,10 @@ async function deleteById(req, res) {
 
 async function saleById(req, res) {
   const id = req.params.id;
-  const { quantity } = req.body;
+  const { error, value: quantity } = backstore.validate(req.body)
 
-  if (quantity == null) {
-    return res.status(400).send('Corpo da requisição deve conter a propriedade `quantity`.');
+  if (error) {
+    return res.status(400).send({ error: error.details[0].message })
   }
 
   try {

@@ -1,0 +1,23 @@
+const Joi = require('joi');
+
+const backstore = Joi.object({
+  name: Joi
+    .string()
+    .min(1)
+    .max(30)
+    .required(),
+
+  image: Joi.string()
+    .uri()
+    .required(),
+
+  quantity: Joi.number()
+    .max(10)
+    .required(),
+
+  price: Joi.number()
+    .integer()
+    .required(),
+});
+
+module.exports = backstore
