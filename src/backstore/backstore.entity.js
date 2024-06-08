@@ -12,7 +12,6 @@ const backstore = Joi.object({
     .required(),
 
   quantity: Joi.number()
-    .max(10)
     .required(),
 
   price: Joi.number()
