@@ -27,10 +27,10 @@ function create(newItem) {
  * @param {string} id 
  * @returns 
  */
-function updateById(id, newItem) {
+function updateById(id, updateItem) {
   return getCollection().updateOne(
     { _id: new ObjectId(id) },
-    { $set: newItem }
+    { $set: updateItem }
   )
 }
 

@@ -32,14 +32,14 @@ async function create(req, res) {
 async function updateById(req, res) {
   const id = req.params.id
 
-  const { error, value: newItem } = backstore.validate(req.body)
+  const { error, value: updateItem } = backstore.validate(req.body)
 
   if (error) {
     return res.status(400).send({ error: error.details[0].message })
   }
 
-  await service.updateById(id, newItem)
-  res.send(newItem)
+  await service.updateById(id, updateItem)
+  res.status(404).send(updateItem)
 }
 
 async function deleteById(req, res) {
