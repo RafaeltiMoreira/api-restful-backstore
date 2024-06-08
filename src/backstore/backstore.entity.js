@@ -15,7 +15,6 @@ const backstore = Joi.object({
     .required(),
 
   price: Joi.number()
-    .integer()
     .required(),
 });
 
