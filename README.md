@@ -26,7 +26,7 @@ A aplicação backend é implantada online e pode ser acessada em [backstore bac
 - Endpoints para operações CRUD:
   - `POST /api/products` - Cria um novo produto
   - `GET /api/products` - Lista todos os produtos
-  - `PATCH /api/products/:id` - Atualiza um produto existente
+  - `PUT /api/products/:id` - Atualiza um produto existente
   - `DELETE /api/products/:id` - Deleta um produto
 
 ### Integração FullStack
